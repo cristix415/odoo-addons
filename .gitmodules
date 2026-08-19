@@ -1,0 +1,4 @@
+[submodule "l10n-romania"]
+	path = l10n-romania
+	url = https://github.com/OCA/l10n-romania.git
+	branch = 19.0
