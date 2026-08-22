@@ -2,9 +2,9 @@ FROM odoo:19
 
 USER root
 
-# 1. Instalăm pip și librăriile necesare ocolind restricția Ubuntu
+# 1. Instalăm pip, curl (pentru healthcheck Coolify) și librăriile necesare
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3-pip && \
+    python3-pip curl && \
     pip3 install --no-cache-dir --break-system-packages num2words python-dateutil && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -15,8 +15,7 @@ RUN chown -R odoo:odoo /mnt/extra-addons
 
 USER odoo
 
-# 3. Setăm variabilele de mediu direct în Dockerfile pentru a evita erorile de conexiune
-# Schimbă "coolify-db", "odoo" și "parola_ta" cu datele reale de la baza ta de date PostgreSQL
+# 3. Setăm variabilele de mediu pentru conexiunea la baza de date și add-ons
 ENV HOST=coolify-db
 ENV PORT=5432
 ENV USER=odoo
